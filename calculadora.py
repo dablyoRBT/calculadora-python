@@ -1,6 +1,18 @@
-n1 = float(input("Digite um valor: "))
-op = input("Digite a operação: ")
-n2 = float(input("Digite outro valor: "))
+operacoes = ["+", "-", "/", "*"]
+
+while True:
+    try:
+        n1 = float(input("Digite um valor: "))
+        op = input("Digite a operação: ")
+        if op in operacoes:
+            n2 = float(input("Digite outro valor: "))
+        else:
+            print("Operação inválida!")
+            continue
+    except ValueError:
+        print("Você digitou um valor inválido!")
+    else:
+        break
 
 match op:
     case "+":
@@ -19,4 +31,7 @@ match op:
         else:
             print(float(n1 * n2))
     case "/":
-        print(n1 / n2)
+        try:
+            print(n1 / n2)
+        except ZeroDivisionError:
+            print("Indefinido!")
