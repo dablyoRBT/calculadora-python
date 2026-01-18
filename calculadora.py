@@ -1,6 +1,6 @@
 #Validação de entrada inicial ------------------------------------------------------------
 operacoes = ["+", "-", "/", "*", "="]
-def validar():
+def obter_entrada():
     while True: 
         try: 
             n1 = float(input("Digite um valor: ")) 
@@ -12,9 +12,7 @@ def validar():
                 continue 
         except ValueError: print("Você digitou um valor inválido!") 
         else: 
-            resultado = calcular(n1, n2, operacao)
-            loop(resultado)
-            break
+            return n1, n2, operacao
 
 #Calculadora -----------------------------------------------------------------------------     
 def calcular(value1, value2, operation):
@@ -32,7 +30,7 @@ def calcular(value1, value2, operation):
                 return "Indefinido!"  
             
 #Laço principal de repetições ------------------------------------------------------------
-def loop(result):
+def executar_operacoes(result):
     atual = result
     while True:
         try:
@@ -51,5 +49,24 @@ def loop(result):
         except ValueError:
             print("Você digitou um valor inválido!")
         
-    
-validar()
+#Controle do programa -------------------------------------------------------------------------
+def main():
+    entrada = obter_entrada()
+    resultado = calcular(*entrada)
+    executar_operacoes(resultado)
+    while True:
+        end = input("Deseja continuar? (s/n): ").upper()
+        if end == "S":
+            entrada = obter_entrada()
+            resultado = calcular(*entrada)
+            executar_operacoes(resultado)
+            continue
+        elif end == "N":
+            print("Fim do programa!")
+            break
+        else:
+            print("Por favor, digite S para sim ou N para não!")
+            continue
+        
+
+main()
