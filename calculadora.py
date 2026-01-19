@@ -7,16 +7,23 @@ def calcular(value1, value2, operation):
             return value1 - value2
         case "*":
             return value1 * value2
+        case "**":
+            return value1 ** value2
         case "/":
             try:
                 return value1 / value2
+            except ZeroDivisionError:
+                return "ZeroDivisionError"
+        case "%":
+            try:
+                return value1 % value2
             except ZeroDivisionError:
                 return "ZeroDivisionError"
 
 
 #Validação de entrada inicial ------------------------------------------------------------
 def obter_entrada():
-    operacoes = ["+", "-", "/", "*"]
+    operacoes = ["+", "-", "/", "*", "**", "%"]
     while True: 
         try: 
             n1 = float(input("Digite um valor: ")) 
@@ -32,7 +39,7 @@ def obter_entrada():
             
 #Laço principal de repetições ------------------------------------------------------------
 def montar_operacao(entrada):
-    operacoes = ["+", "-", "/", "*", "="]
+    operacoes = ["+", "-", "/", "*", "**", "%", "="]
     expressao = entrada
     while True:
         try:
@@ -54,9 +61,10 @@ def montar_operacao(entrada):
         
 #Define a ordem de precedência dentro da expressão matemática ----------------------------
 def precedencia(array):
+    #verifica a potenciação
     i = 0
     while i < len(array):
-        if array[i] == "*" or array[i] == "/":
+        if array[i] == "**":
             x = i - 1  # Número antes
             y = i + 1  # Número depois
             z = calcular(array[x], array[y], array[i]) # Realiza o cálculo
@@ -72,7 +80,28 @@ def precedencia(array):
                 i = 0 # Set para zero, pois a lista mudou...
         else:
             i += 1
-    
+
+    #Verifica ("*", "/", "%")
+    i = 0
+    while i < len(array):
+        if array[i] in ("*", "/", "%"):
+            x = i - 1  
+            y = i + 1  
+            z = calcular(array[x], array[y], array[i]) 
+            if z == "ZeroDivisionError":
+                return "ZeroDivisionError"
+            else:
+                array.pop(y) 
+                array.pop(i) 
+                array.pop(x) 
+                
+                array.insert(x, z) 
+                
+                i = 0 
+        else:
+            i += 1
+
+    #Verifica soma e subtração
     i = 0
     while i < len(array):
         if array[i] == "+" or array[i] == "-":
@@ -91,7 +120,6 @@ def precedencia(array):
     
     return array[0]
         
-
 #Controle do programa -------------------------------------------------------------------------
 def main():
     while True: 
@@ -118,11 +146,3 @@ def main():
             break
                     
 main()
-
-
-
-
-
-
-
-
