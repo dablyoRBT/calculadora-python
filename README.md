@@ -26,8 +26,9 @@ O objetivo principal foi praticar lógica de programação, organização de có
 ## 🧠 Estrutura do projeto
 
 calculadora-python/
-├── calculadora_interface.py → Interface gráfica com Tkinter  
-├── calculadora.py           → Lógica da calculadora  
+
+├── calculadora.py           → Lógica da calculadora 
+├── calculadora_interface.py → Interface gráfica com Tkinter   
 ├── README.md                → Documentação do projeto  
 
 A interface gráfica utiliza diretamente a lógica presente em `calculadora.py`, simulando uma separação entre back-end (lógica) e front-end com (GUI).
