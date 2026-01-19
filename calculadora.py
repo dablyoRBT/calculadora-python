@@ -145,4 +145,5 @@ def main():
             print("Fim do programa!")
             break
                     
-main()
+if __name__ == "__main__":
+    main()
